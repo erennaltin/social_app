@@ -3,8 +3,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
-import 'package:social_app/ui/components/Button.dart';
-import 'package:social_app/ui/components/Input.dart';
+import 'package:social_app/ui/components/app_bar_with_back_button.dart';
+import 'package:social_app/ui/components/button.dart';
+import 'package:social_app/ui/components/input.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({Key? key}) : super(key: key);
@@ -12,53 +13,56 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: white,
-          leading: IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset("assets/svgs/back.svg"),
-          ),
-        ),
+        appBar: AppBarWithBackButton(),
         body: Padding(
           padding:
               const EdgeInsets.symmetric(horizontal: standartPadding * 1.5),
+          child: buildBody(),
+        ));
+  }
+
+  Column buildBody() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
+            children: [
+              const Padding(padding: EdgeInsets.only(top: standartPadding)),
+              buildTitleText(),
+              const Padding(padding: EdgeInsets.only(bottom: standartPadding)),
+              buildSubtitleText(),
+              Padding(
+                padding: EdgeInsets.only(bottom: standartPadding * 3),
+              ),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                        padding: EdgeInsets.only(top: standartPadding)),
-                    Text(
-                      "Let’s sign you in.",
-                      style: headline1.copyWith(
-                        color: dark,
-                      ),
-                    ),
-                    const Padding(
-                        padding: EdgeInsets.only(bottom: standartPadding)),
-                    Text(
-                      "Welcome back to your workspace!",
-                      style: headline1.copyWith(
-                        color: dark60,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: standartPadding * 3),
-                    ),
-                    Expanded(
-                      child: SignInForm(),
-                    ),
-                  ],
-                ),
-              )
+                child: SignInForm(),
+              ),
             ],
           ),
-        ));
+        )
+      ],
+    );
+  }
+
+  Text buildSubtitleText() {
+    return Text(
+      "Welcome back to your workspace!",
+      style: headline1.copyWith(
+        color: dark60,
+        fontWeight: FontWeight.w300,
+      ),
+    );
+  }
+
+  Text buildTitleText() {
+    return Text(
+      "Let’s sign you in.",
+      style: headline1.copyWith(
+        color: dark,
+      ),
+    );
   }
 }
 

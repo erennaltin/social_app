@@ -4,7 +4,7 @@ import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
 
-import '../../components/Button.dart';
+import '../../components/button.dart';
 
 class FirstScreen extends StatelessWidget {
   const FirstScreen({Key? key}) : super(key: key);

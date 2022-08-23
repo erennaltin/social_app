@@ -7,6 +7,13 @@ const TextStyle headline3 = TextStyle(
   fontFamily: 'Poppins',
 );
 
+const TextStyle headline2 = TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w600,
+  height: 1.5,
+  fontFamily: 'Poppins',
+);
+
 const TextStyle headline1 = TextStyle(
   fontSize: 32,
   fontWeight: FontWeight.w600,
