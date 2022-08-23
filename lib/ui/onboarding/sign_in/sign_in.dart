@@ -5,6 +5,7 @@ import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
 import 'package:social_app/ui/components/app_bar_with_back_button.dart';
 import 'package:social_app/ui/components/button.dart';
+import 'package:social_app/ui/components/custom_text_button.dart';
 import 'package:social_app/ui/components/input.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -59,7 +60,7 @@ class SignInScreen extends StatelessWidget {
   Text buildTitleText() {
     return Text(
       "Let’s sign you in.",
-      style: headline1.copyWith(
+      style: welcomeTitle.copyWith(
         color: dark,
       ),
     );
@@ -148,30 +149,6 @@ class SignInFormState extends State<SignInForm> {
               text: "Sign In", onPressed: () {}, isDisabled: !isSignInActive),
           Padding(padding: EdgeInsets.only(bottom: standartPadding * 4))
         ],
-      ),
-    );
-  }
-}
-
-class CustomTextButton extends StatelessWidget {
-  const CustomTextButton({
-    Key? key,
-    required this.text,
-    this.onPressed,
-  }) : super(key: key);
-
-  final String text;
-  final VoidCallback? onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: body.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
       ),
     );
   }

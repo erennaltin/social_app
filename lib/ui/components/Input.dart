@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 
@@ -14,6 +15,7 @@ class Input extends StatefulWidget {
 
   late InputDecoration _decoration;
   late TextInputType _keyboardType;
+  var _inputFormatters = <TextInputFormatter>[];
   late String? Function(String? validator)? _validator;
 
   bool isPassword = false;
@@ -23,7 +25,8 @@ class Input extends StatefulWidget {
 }
 
 class _InputState extends State<Input> {
-  bool isObscure = true;
+  bool _isObscure = true;
+  String? _country = "tr";
   @override
   Widget build(BuildContext context) {
     var _emailDecoration = const InputDecoration(
@@ -32,16 +35,47 @@ class _InputState extends State<Input> {
     );
 
     var _passwordDecoration = InputDecoration(
-        labelText: 'Password',
-        hintText: "Password",
-        suffixIcon: IconButton(
-            onPressed: () {
+      labelText: 'Password',
+      hintText: "Password",
+      suffixIcon: IconButton(
+        onPressed: () {
+          setState(() {
+            _isObscure = !_isObscure;
+          });
+        },
+        icon: SvgPicture.asset("assets/svgs/additions.svg",
+            color: _isObscure ? dark30 : accentBlue),
+      ),
+    );
+
+    var _phoneDecoration = InputDecoration(
+        labelText: 'Mobile Phone',
+        hintText: "Mobile Phone",
+        prefixIcon: IconButton(
+          onPressed: () {
+            setState(() {
+              _isObscure = !_isObscure;
+            });
+          },
+          icon: DropdownButton<String>(
+            value: _country,
+            elevation: 16,
+            onChanged: (value) {
               setState(() {
-                isObscure = !isObscure;
+                _country = value;
               });
             },
-            icon: SvgPicture.asset("assets/svgs/additions.svg",
-                color: isObscure ? dark30 : accentBlue)));
+            icon: Visibility(visible: false, child: Icon(Icons.arrow_downward)),
+            items: <String>['tr', 'us']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: SvgPicture.asset('icons/flags/svg/${value}.svg',
+                    package: 'country_icons', height: 16, width: 16),
+              );
+            }).toList(),
+          ),
+        ));
 
     switch (widget.inputType) {
       case "Email":
@@ -73,6 +107,25 @@ class _InputState extends State<Input> {
           };
           break;
         }
+      case "Phone":
+        {
+          widget._decoration = _phoneDecoration;
+          widget._keyboardType = TextInputType.phone;
+          widget._inputFormatters = [
+            LengthLimitingTextInputFormatter(10),
+          ];
+          widget._validator = (value) {
+            if (value != null) {
+              if (value.isNotEmpty) {
+                if (value.length != 10) {
+                  return "Enter a valid phone number!";
+                }
+              }
+            }
+            return null;
+          };
+          break;
+        }
       default:
         {
           widget._decoration = _emailDecoration;
@@ -85,12 +138,13 @@ class _InputState extends State<Input> {
     return TextFormField(
       validator: widget._validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      obscureText: widget.isPassword ? isObscure : false,
+      obscureText: widget.isPassword ? _isObscure : false,
       autocorrect: widget.isPassword,
       enableSuggestions: widget.isPassword,
       decoration: widget._decoration,
       keyboardType: widget._keyboardType,
       controller: widget.controller,
+      inputFormatters: widget._inputFormatters,
     );
   }
 }
