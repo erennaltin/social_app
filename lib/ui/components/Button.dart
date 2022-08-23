@@ -8,13 +8,16 @@ class Button extends StatelessWidget {
   Button(
       {Key? key,
       this.type = "Normal",
+      this.isDisabled = false,
       required this.text,
       required this.onPressed})
       : super(key: key);
 
   final String type, text;
-  late ButtonStyle style;
   final VoidCallback? onPressed;
+  final bool isDisabled;
+
+  late ButtonStyle style;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class Button extends StatelessWidget {
         }
     }
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isDisabled ? null : onPressed,
       style: style,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: standartPadding),

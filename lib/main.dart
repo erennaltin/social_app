@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:social_app/ui/onboarding/first_screen/first_screen.dart';
+import 'package:social_app/core/constants/color_constants.dart';
+import 'package:social_app/core/theme/light_theme.dart';
+import 'package:social_app/ui/onboarding/sign_in/sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: FirstScreen(),
+      home: SignInScreen(),
+      theme: buildLightTheme(),
     );
   }
 }
