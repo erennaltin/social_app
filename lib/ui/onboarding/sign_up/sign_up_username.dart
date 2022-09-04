@@ -9,8 +9,8 @@ import 'package:social_app/ui/components/input.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:country_icons/country_icons.dart';
 
-class SignUpPhoneScreen extends StatelessWidget {
-  const SignUpPhoneScreen({Key? key, required this.controller})
+class SignUpUsernameScreen extends StatelessWidget {
+  const SignUpUsernameScreen({Key? key, required this.controller})
       : super(key: key);
 
   final PageController controller;
@@ -23,37 +23,39 @@ class SignUpPhoneScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Text("Mobile Number",
+          Text("Create Username",
               style: headline1.copyWith(
                 color: dark,
               )),
-          Text("You will need it to sign in to the application",
+          Text("Identify yourself or be creative!!!",
               style: bodySmaller.copyWith(
                 color: dark60,
               )),
           Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Expanded(child: SignInMobileForm(controller: controller))
+          Expanded(child: SignUpUsernameForm(controller: controller))
         ],
       ),
     );
   }
 }
 
-class SignInMobileForm extends StatefulWidget {
-  const SignInMobileForm({super.key, required this.controller});
+class SignUpUsernameForm extends StatefulWidget {
+  const SignUpUsernameForm({super.key, required this.controller});
 
   final PageController controller;
 
   @override
-  SignInMobileFormState createState() {
-    return SignInMobileFormState();
+  SignUpUsernameFormState createState() {
+    return SignUpUsernameFormState();
   }
 }
 
-class SignInMobileFormState extends State<SignInMobileForm> {
+class SignUpUsernameFormState extends State<SignUpUsernameForm> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
   bool isSignUpActive = false;
+  bool isValidating = false;
+  bool isValid = false;
 
   @override
   void initState() {
@@ -69,14 +71,21 @@ class SignInMobileFormState extends State<SignInMobileForm> {
   }
 
   void _handleInputChange() {
+    setState(() {
+      isValidating = true;
+      isValid = false;
+    });
     bool val = _formKey.currentState!.validate();
     if (val) {
       setState(() {
         isSignUpActive = true;
+        isValidating = false;
+        isValid = true;
       });
     } else {
       setState(() {
         isSignUpActive = false;
+        isValidating = false;
       });
     }
   }
@@ -88,20 +97,18 @@ class SignInMobileFormState extends State<SignInMobileForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Input(inputType: "Phone", controller: _phoneController),
+          Input(
+              inputType: "Username",
+              controller: _phoneController,
+              isValidating: isValidating,
+              isValid: isValid),
           Padding(
             padding: EdgeInsets.only(bottom: standartPadding * 1.5),
           ),
           Spacer(),
-          Text(
-            "You will receive an SMS code for verification.",
-            style: bodySmaller.copyWith(
-              color: dark60,
-            ),
-          ),
           Padding(padding: EdgeInsets.only(top: standartPadding)),
           Button(
-              text: "Continue",
+              text: "Finish",
               onPressed: () {
                 widget.controller.nextPage(
                     duration: Duration(milliseconds: 100),

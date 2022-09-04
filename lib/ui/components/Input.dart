@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:social_app/core/constants/color_constants.dart';
+import 'package:social_app/core/constants/spacing_constants.dart';
 
 class Input extends StatefulWidget {
   Input({
     Key? key,
     required this.inputType,
     required this.controller,
+    this.isValid = false,
+    this.isValidating = false,
   }) : super(key: key);
 
   final String inputType;
@@ -19,6 +22,8 @@ class Input extends StatefulWidget {
   late String? Function(String? validator)? _validator;
 
   bool isPassword = false;
+  final bool isValid;
+  final bool isValidating;
 
   @override
   State<Input> createState() => _InputState();
@@ -77,6 +82,23 @@ class _InputState extends State<Input> {
           ),
         ));
 
+    var _usernameDecoration = InputDecoration(
+      labelText: 'Username',
+      hintText: "username",
+      suffixIcon: Padding(
+          padding: EdgeInsets.all(standartPadding),
+          child: widget.isValidating
+              ? SizedBox(
+                  width: standartPadding,
+                  height: standartPadding,
+                  child: CircularProgressIndicator(strokeWidth: 4))
+              : widget.isValid
+                  ? SvgPicture.asset(
+                      'assets/svgs/valid_username.svg',
+                    )
+                  : null),
+    );
+
     switch (widget.inputType) {
       case "Email":
         {
@@ -120,6 +142,20 @@ class _InputState extends State<Input> {
                 if (value.length != 10) {
                   return "Enter a valid phone number!";
                 }
+              }
+            }
+            return null;
+          };
+          break;
+        }
+      case "Username":
+        {
+          widget._decoration = _usernameDecoration;
+          widget._keyboardType = TextInputType.text;
+          widget._validator = (value) {
+            if (value != null) {
+              if (value.length < 8) {
+                return "You need to enter a username.";
               }
             }
             return null;

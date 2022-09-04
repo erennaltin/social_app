@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
@@ -27,7 +28,7 @@ class FirstScreen extends StatelessWidget {
               child: buildTexts(),
             ),
             Expanded(
-              child: buildButtons(),
+              child: buildButtons(context),
             ),
           ],
         ),
@@ -65,20 +66,29 @@ class FirstScreen extends StatelessWidget {
   Container buildLogo() {
     return Container(
         padding: EdgeInsets.only(left: standartMargin / 2),
-        child: SvgPicture.asset("assets/svg/logo.svg"));
+        child: SvgPicture.asset("assets/svgs/logo.svg"));
   }
 
-  Row buildButtons() {
+  Row buildButtons(context) {
     return Row(
       children: <Widget>[
         Expanded(
           child: Container(
             margin: const EdgeInsets.only(right: standartMargin / 2),
-            child: Button(text: "Register", onPressed: () {}),
+            child: Button(
+                text: "Register",
+                onPressed: () {
+                  Navigator.pushNamed(context, '/SignUpScreen');
+                }),
           ),
         ),
         Expanded(
-          child: Button(text: "Sign In", type: "Secondary", onPressed: () {}),
+          child: Button(
+              text: "Sign In",
+              type: "Secondary",
+              onPressed: () {
+                Navigator.pushNamed(context, '/SignInScreen');
+              }),
         ),
       ],
     );

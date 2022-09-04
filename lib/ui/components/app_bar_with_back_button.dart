@@ -4,12 +4,14 @@ import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
 
 class AppBarWithBackButton extends StatelessWidget with PreferredSizeWidget {
-  AppBarWithBackButton({super.key, this.title});
+  AppBarWithBackButton({super.key, this.title, this.page, this.controller});
 
   @override
   Size preferredSize = Size.fromHeight(77.0);
 
   final String? title;
+  final double? page;
+  final PageController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,15 @@ class AppBarWithBackButton extends StatelessWidget with PreferredSizeWidget {
             color: dark,
           )),
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          if (page! > 0) {
+            controller?.previousPage(
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeIn);
+          } else {
+            Navigator.pop(context);
+          }
+        },
         icon: SvgPicture.asset("assets/svgs/back.svg"),
       ),
     );

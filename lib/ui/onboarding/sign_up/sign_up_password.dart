@@ -9,8 +9,8 @@ import 'package:social_app/ui/components/input.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:country_icons/country_icons.dart';
 
-class SignUpPhoneScreen extends StatelessWidget {
-  const SignUpPhoneScreen({Key? key, required this.controller})
+class SignUpPasswordScreen extends StatelessWidget {
+  const SignUpPasswordScreen({Key? key, required this.controller})
       : super(key: key);
 
   final PageController controller;
@@ -23,7 +23,7 @@ class SignUpPhoneScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Text("Mobile Number",
+          Text("Create Password",
               style: headline1.copyWith(
                 color: dark,
               )),
@@ -32,39 +32,39 @@ class SignUpPhoneScreen extends StatelessWidget {
                 color: dark60,
               )),
           Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Expanded(child: SignInMobileForm(controller: controller))
+          Expanded(child: SignUpPasswordForm(controller: controller))
         ],
       ),
     );
   }
 }
 
-class SignInMobileForm extends StatefulWidget {
-  const SignInMobileForm({super.key, required this.controller});
+class SignUpPasswordForm extends StatefulWidget {
+  const SignUpPasswordForm({super.key, required this.controller});
 
   final PageController controller;
 
   @override
-  SignInMobileFormState createState() {
-    return SignInMobileFormState();
+  SignUpPasswordFormState createState() {
+    return SignUpPasswordFormState();
   }
 }
 
-class SignInMobileFormState extends State<SignInMobileForm> {
+class SignUpPasswordFormState extends State<SignUpPasswordForm> {
   final _formKey = GlobalKey<FormState>();
-  final _phoneController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool isSignUpActive = false;
 
   @override
   void initState() {
     super.initState();
 
-    _phoneController.addListener(_handleInputChange);
+    _passwordController.addListener(_handleInputChange);
   }
 
   @override
   void dispose() {
-    _phoneController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
@@ -88,17 +88,11 @@ class SignInMobileFormState extends State<SignInMobileForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Input(inputType: "Phone", controller: _phoneController),
+          Input(inputType: "Password", controller: _passwordController),
           Padding(
             padding: EdgeInsets.only(bottom: standartPadding * 1.5),
           ),
           Spacer(),
-          Text(
-            "You will receive an SMS code for verification.",
-            style: bodySmaller.copyWith(
-              color: dark60,
-            ),
-          ),
           Padding(padding: EdgeInsets.only(top: standartPadding)),
           Button(
               text: "Continue",

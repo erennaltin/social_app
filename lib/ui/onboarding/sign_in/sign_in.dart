@@ -140,7 +140,11 @@ class SignInFormState extends State<SignInForm> {
                 Spacer(),
                 Text("|", style: bodySmaller.copyWith(color: secondaryActive)),
                 Spacer(),
-                CustomTextButton(text: "Register", onPressed: () {})
+                CustomTextButton(
+                    text: "Register",
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/SignUpPhoneScreen');
+                    })
               ],
             ),
           ),
