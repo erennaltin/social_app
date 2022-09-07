@@ -143,7 +143,7 @@ class SignInFormState extends State<SignInForm> {
                 CustomTextButton(
                     text: "Register",
                     onPressed: () {
-                      Navigator.pushNamed(context, '/SignUpPhoneScreen');
+                      Navigator.pushNamed(context, '/SignUpScreen');
                     })
               ],
             ),

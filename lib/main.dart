@@ -4,8 +4,15 @@ import 'package:social_app/ui/onboarding/first_screen/first_screen.dart';
 import 'package:social_app/ui/onboarding/sign_in/sign_in.dart';
 import 'package:social_app/ui/onboarding/sign_up/sign_up.dart';
 import 'package:social_app/ui/onboarding/sign_up/sign_up_phone.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

@@ -25,10 +25,14 @@ class AppBarWithBackButton extends StatelessWidget with PreferredSizeWidget {
           )),
       leading: IconButton(
         onPressed: () {
-          if (page! > 0) {
-            controller?.previousPage(
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeIn);
+          if (page != null) {
+            if (page! > 0) {
+              controller?.previousPage(
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.easeIn);
+            } else {
+              Navigator.pop(context);
+            }
           } else {
             Navigator.pop(context);
           }
