@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
@@ -8,6 +9,8 @@ import 'package:social_app/ui/components/custom_text_button.dart';
 import 'package:social_app/ui/components/input.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:country_icons/country_icons.dart';
+
+import '../../../core/blocs/bloc/user_bloc.dart';
 
 class SignUpPasswordScreen extends StatelessWidget {
   const SignUpPasswordScreen({Key? key, required this.controller})
@@ -32,7 +35,12 @@ class SignUpPasswordScreen extends StatelessWidget {
                 color: dark60,
               )),
           Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Expanded(child: SignUpPasswordForm(controller: controller))
+          Expanded(child: BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              return SignUpPasswordForm(
+                  controller: controller, blocContext: context);
+            },
+          ))
         ],
       ),
     );
@@ -40,9 +48,11 @@ class SignUpPasswordScreen extends StatelessWidget {
 }
 
 class SignUpPasswordForm extends StatefulWidget {
-  const SignUpPasswordForm({super.key, required this.controller});
+  const SignUpPasswordForm(
+      {super.key, required this.controller, required this.blocContext});
 
   final PageController controller;
+  final BuildContext blocContext;
 
   @override
   SignUpPasswordFormState createState() {
@@ -69,6 +79,9 @@ class SignUpPasswordFormState extends State<SignUpPasswordForm> {
   }
 
   void _handleInputChange() {
+    widget.blocContext
+        .read<UserBloc>()
+        .add(SetPassword(_passwordController.text));
     bool val = _formKey.currentState!.validate();
     if (val) {
       setState(() {

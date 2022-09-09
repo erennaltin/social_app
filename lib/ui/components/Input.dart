@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/spacing_constants.dart';
+
+import '../../core/blocs/bloc/user_bloc.dart';
+import '../../core/enums/phone_code.dart';
 
 class Input extends StatefulWidget {
   Input({
@@ -31,7 +35,7 @@ class Input extends StatefulWidget {
 
 class _InputState extends State<Input> {
   bool _isObscure = true;
-  String? _country = "tr";
+  PhoneCode _country = PhoneCode.tr;
   @override
   Widget build(BuildContext context) {
     var _emailDecoration = const InputDecoration(
@@ -57,28 +61,40 @@ class _InputState extends State<Input> {
         labelText: 'Mobile Phone',
         hintText: "Mobile Phone",
         prefixIcon: IconButton(
-          onPressed: () {
-            setState(() {
-              _isObscure = !_isObscure;
-            });
-          },
-          icon: DropdownButton<String>(
-            value: _country,
-            elevation: 16,
-            onChanged: (value) {
-              setState(() {
-                _country = value;
-              });
-            },
-            icon: Visibility(visible: false, child: Icon(Icons.arrow_downward)),
-            items: <String>['tr', 'us']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: SvgPicture.asset('icons/flags/svg/${value}.svg',
-                    package: 'country_icons', height: 16, width: 16),
+          onPressed: () {},
+          icon: BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              var phoneCodes = PhoneCode.values
+                  .toList()
+                  .map((e) => e.toString().split('.').elementAt(1))
+                  .toList();
+
+              return DropdownButton<PhoneCode>(
+                value: _country,
+                elevation: 16,
+                onChanged: (value) {
+                  context
+                      .read<UserBloc>()
+                      .add(SetPhoneCode(value ?? PhoneCode.tr));
+                  setState(() {
+                    _country = value ?? PhoneCode.tr;
+                  });
+                },
+                icon: const Visibility(
+                    visible: false, child: Icon(Icons.arrow_downward)),
+                items: PhoneCode.values
+                    .map<DropdownMenuItem<PhoneCode>>((PhoneCode value) {
+                  return DropdownMenuItem<PhoneCode>(
+                    value: value,
+                    child: SvgPicture.asset(
+                        'icons/flags/svg/${value.toString().split('.').elementAt(1)}.svg',
+                        package: 'country_icons',
+                        height: 16,
+                        width: 16),
+                  );
+                }).toList(),
               );
-            }).toList(),
+            },
           ),
         ));
 

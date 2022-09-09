@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
@@ -46,21 +47,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBackButton(
-        title: "Sign Up",
-        page: _page,
-        controller: _pageController,
-      ),
-      body: PageView(
-        controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
-        children: <Widget>[
-          SignUpPhoneScreen(controller: _pageController),
-          SignUpOTPScreen(controller: _pageController),
-          SignUpPasswordScreen(controller: _pageController),
-          SignUpUsernameScreen(controller: _pageController),
-        ],
-      ),
-    );
+        appBar: AppBarWithBackButton(
+          title: "Sign Up",
+          page: _page,
+          controller: _pageController,
+        ),
+        body: PageView(
+          controller: _pageController,
+          physics: NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            SignUpPhoneScreen(controller: _pageController),
+            SignUpOTPScreen(controller: _pageController),
+            SignUpPasswordScreen(controller: _pageController),
+            SignUpUsernameScreen(controller: _pageController),
+          ],
+        ));
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:social_app/core/blocs/bloc/user_bloc.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
@@ -10,6 +12,8 @@ import 'package:social_app/ui/components/input.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:country_icons/country_icons.dart';
 
+import '../../../core/enums/phone_code.dart';
+
 class SignUpOTPScreen extends StatelessWidget {
   const SignUpOTPScreen({Key? key, required this.controller}) : super(key: key);
 
@@ -17,36 +21,42 @@ class SignUpOTPScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: standartPadding),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Text("Enter the Code",
-              style: headline1.copyWith(
-                color: dark,
-              )),
-          RichText(
-            text: TextSpan(
-              text: "Enter the four-digit code that was sent to you at\n",
-              children: [
-                TextSpan(
-                  text: "+90 541 210 6041",
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: standartPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
+              Text("Enter the Code",
+                  style: headline1.copyWith(
+                    color: dark,
+                  )),
+              RichText(
+                text: TextSpan(
+                  text: "Enter the four-digit code that was sent to you at\n",
+                  children: [
+                    TextSpan(
+                      text: state is UserLoaded
+                          ? "${state.user.phoneCode.getPhoneCode} ${state.user.phoneNumber}"
+                          : "",
+                      style: bodySmaller.copyWith(
+                        color: accentBlue,
+                      ),
+                    ),
+                  ],
                   style: bodySmaller.copyWith(
-                    color: accentBlue,
+                    color: dark60,
                   ),
                 ),
-              ],
-              style: bodySmaller.copyWith(
-                color: dark60,
               ),
-            ),
+              Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
+              Expanded(child: SignInOtpForm(controller: controller))
+            ],
           ),
-          Padding(padding: EdgeInsets.only(top: standartPadding * 1.5)),
-          Expanded(child: SignInOtpForm(controller: controller))
-        ],
-      ),
+        );
+      },
     );
   }
 }
