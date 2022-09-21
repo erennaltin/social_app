@@ -191,7 +191,7 @@ class _InputState extends State<Input> {
       validator: widget._validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       obscureText: widget.isPassword ? _isObscure : false,
-      autocorrect: widget.isPassword,
+      autocorrect: !widget.isPassword,
       enableSuggestions: widget.isPassword,
       decoration: widget._decoration,
       keyboardType: widget._keyboardType,

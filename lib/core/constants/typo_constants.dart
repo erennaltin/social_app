@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 const TextStyle headline1 = TextStyle(
@@ -67,5 +69,12 @@ const TextStyle helpText = TextStyle(
   fontSize: 10,
   fontWeight: FontWeight.w500,
   height: 16 / 10,
+  fontFamily: 'Poppins',
+);
+
+const TextStyle uppercaseBig = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w600,
+  height: 20 / 12,
   fontFamily: 'Poppins',
 );

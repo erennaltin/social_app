@@ -12,6 +12,8 @@ ThemeData buildLightTheme() {
     primaryColor: accentBlue,
     focusColor: accentBlue60,
     inputDecorationTheme: InputDecorationTheme(
+      fillColor: white,
+      filled: true,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(standartRadius),
       ),

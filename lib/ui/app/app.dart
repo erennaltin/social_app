@@ -6,6 +6,7 @@ import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
 import 'package:social_app/ui/app/feed/feed_screen.dart';
 import 'package:social_app/ui/components/app_bar_with_back_button.dart';
+import 'package:social_app/ui/components/app_bar_with_leading_title_and_actions.dart';
 import 'package:social_app/ui/components/create_story_box.dart';
 import 'package:social_app/ui/components/post_card.dart';
 import 'package:social_app/ui/components/story_box.dart';
@@ -69,9 +70,56 @@ class _AppScreenState extends State<AppScreen> {
   }
 
   PreferredSizeWidget? buildNavigatedAppBar() {
-    if (_selectedIndex == 0)
-      return AppBarWithLeadingTitleAndActions();
-    else
+    if (_selectedIndex == 0) {
+      return AppBarWithLeadingTitleAndActions(
+        title: "Feed",
+        actionButtons: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svgs/notification.svg"),
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/svgs/new_post.svg"))
+        ],
+      );
+    } else if (_selectedIndex == 1) {
+      return AppBarWithLeadingTitleAndActions(
+        title: "Chat",
+        actionButtons: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svgs/search.svg"),
+          ),
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset("assets/svgs/new_post.svg"))
+        ],
+      );
+    } else if (_selectedIndex == 2) {
+      return AppBarWithLeadingTitleAndActions(
+        title: "Shop",
+        actionButtons: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset("assets/svgs/save.svg", color: accentBlue),
+          ),
+          IconButton(
+              onPressed: () {}, icon: SvgPicture.asset("assets/svgs/more.svg"))
+        ],
+      );
+    } else if (_selectedIndex == 3) {
+      return AppBarWithLeadingTitleAndActions(
+        title: "Profile",
+        actionButtons: <Widget>[
+          IconButton(
+            onPressed: () {},
+            icon:
+                SvgPicture.asset("assets/svgs/settings.svg", color: accentBlue),
+          ),
+        ],
+      );
+    } else
       return null;
   }
 
@@ -86,40 +134,5 @@ class _AppScreenState extends State<AppScreen> {
       return Text("Profile Screen");
     else
       return Text("Selam");
-  }
-}
-
-class AppBarWithLeadingTitleAndActions extends StatelessWidget
-    with PreferredSizeWidget {
-  AppBarWithLeadingTitleAndActions({super.key});
-
-  @override
-  Size preferredSize = Size.fromHeight(77.0);
-
-  @override
-  AppBar build(BuildContext context) {
-    return AppBar(
-      elevation: 0.5,
-      toolbarHeight: 100,
-      backgroundColor: white,
-      title: Text(
-        "Feed",
-        style: headline1.copyWith(
-          color: dark,
-        ),
-      ),
-      centerTitle: false,
-      titleSpacing: (standartMargin * 3) / 2,
-      leadingWidth: 0,
-      actions: <Widget>[
-        IconButton(
-          onPressed: () {},
-          icon: SvgPicture.asset("assets/svgs/notification.svg"),
-        ),
-        IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset("assets/svgs/new_post.svg"))
-      ],
-    );
   }
 }

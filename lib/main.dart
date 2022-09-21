@@ -3,6 +3,7 @@ import 'package:social_app/core/blocs/bloc/user_bloc.dart';
 import 'package:social_app/core/models/user.dart';
 import 'package:social_app/core/theme/light_theme.dart';
 import 'package:social_app/ui/app/app.dart';
+import 'package:social_app/ui/app/feed/post_detail_screen.dart';
 import 'package:social_app/ui/onboarding/first_screen/first_screen.dart';
 import 'package:social_app/ui/onboarding/sign_in/sign_in.dart';
 import 'package:social_app/ui/onboarding/sign_up/sign_up.dart';
@@ -34,12 +35,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: FirstScreen(),
           theme: buildLightTheme(),
-          initialRoute: "/AppScreen",
+          initialRoute: "/PostDetailScreen",
           routes: {
             '/FirstScreen': (context) => FirstScreen(),
             '/SignInScreen': (context) => SignInScreen(),
             '/SignUpScreen': (context) => SignUpScreen(),
             '/AppScreen': (context) => AppScreen(),
+            '/PostDetailScreen': (context) => PostDetailScreen(),
           }),
     );
   }
