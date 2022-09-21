@@ -9,8 +9,15 @@ import 'package:social_app/ui/components/create_story_box.dart';
 import 'package:social_app/ui/components/post_card.dart';
 import 'package:social_app/ui/components/story_box.dart';
 
-class AppScreen extends StatelessWidget {
+class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AppScreen> createState() => _AppScreenState();
+}
+
+class _AppScreenState extends State<AppScreen> {
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +55,41 @@ class AppScreen extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+          showUnselectedLabels: true,
+          selectedLabelStyle: helpText,
+          unselectedLabelStyle: helpText,
+          selectedItemColor: dark,
+          unselectedItemColor: dark60,
+          currentIndex: _selectedIndex,
+          type: BottomNavigationBarType.fixed,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: _selectedIndex == 0
+                    ? SvgPicture.asset("assets/svgs/home_active.svg")
+                    : SvgPicture.asset("assets/svgs/home.svg"),
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: _selectedIndex == 1
+                    ? SvgPicture.asset("assets/svgs/chat_active.svg")
+                    : SvgPicture.asset("assets/svgs/chat.svg"),
+                label: 'Chat'),
+            BottomNavigationBarItem(
+                icon: _selectedIndex == 2
+                    ? SvgPicture.asset("assets/svgs/shop_active.svg")
+                    : SvgPicture.asset("assets/svgs/shop.svg"),
+                label: 'Shop'),
+            BottomNavigationBarItem(
+                icon: _selectedIndex == 3
+                    ? SvgPicture.asset("assets/svgs/profile_active.svg")
+                    : SvgPicture.asset("assets/svgs/profile.svg"),
+                label: 'Profile'),
+          ],
+          onTap: (int index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }),
     );
   }
 
