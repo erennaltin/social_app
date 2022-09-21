@@ -35,6 +35,13 @@ const TextStyle body = TextStyle(
   fontFamily: 'Poppins',
 );
 
+const TextStyle bodySecondary = TextStyle(
+  fontSize: 12,
+  fontWeight: FontWeight.w500,
+  height: 20 / 12,
+  fontFamily: 'Poppins',
+);
+
 const TextStyle bodyArticle = TextStyle(
   fontSize: 16,
   fontWeight: FontWeight.w400,
@@ -53,5 +60,12 @@ const TextStyle bodySmallerSemiBold = TextStyle(
   fontSize: 14,
   fontWeight: FontWeight.w600,
   height: 24 / 14,
+  fontFamily: 'Poppins',
+);
+
+const TextStyle helpText = TextStyle(
+  fontSize: 10,
+  fontWeight: FontWeight.w500,
+  height: 16 / 10,
   fontFamily: 'Poppins',
 );
