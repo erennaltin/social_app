@@ -44,62 +44,69 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       body: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  PostCard(extended: true),
-                  buildCommentContainer(),
-                ],
-              ),
-            ),
+            child: buildPostDetails(),
           ),
-          KeyboardVisibilityBuilder(builder: (context, visible) {
-            return Container(
-              height: visible ? 300 : 86,
-              child: Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: <Widget>[
-                      IconButton(
-                        icon: SvgPicture.asset('assets/svgs/attachment.svg'),
-                        onPressed: () {},
-                      ),
-                      Expanded(
-                        child: Container(
-                          height: visible ? 300 : 40,
-                          child: Center(
-                            child: TextFormField(
-                              maxLines: null,
-                              decoration: InputDecoration(
-                                hintText: "Write a comment!",
-                                hintStyle: body.copyWith(
-                                    color: dark60,
-                                    height: visible ? 8 : body.height),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(999),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: visible
-                                      ? BorderRadius.circular(standartRadius)
-                                      : BorderRadius.circular(999),
-                                  borderSide: BorderSide(color: accentBlue),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          })
+          buildCommentInput()
         ],
       ),
     );
+  }
+
+  SingleChildScrollView buildPostDetails() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          PostCard(extended: true),
+          buildCommentContainer(),
+        ],
+      ),
+    );
+  }
+
+  KeyboardVisibilityBuilder buildCommentInput() {
+    return KeyboardVisibilityBuilder(builder: (context, visible) {
+      return Container(
+        height: visible ? 300 : 86,
+        child: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                  icon: SvgPicture.asset('assets/svgs/attachment.svg'),
+                  onPressed: () {},
+                ),
+                Expanded(
+                  child: Container(
+                    height: visible ? 300 : 40,
+                    child: Center(
+                      child: TextFormField(
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          hintText: "Write a comment!",
+                          hintStyle: body.copyWith(
+                              color: dark60, height: visible ? 8 : body.height),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: visible
+                                ? BorderRadius.circular(standartRadius)
+                                : BorderRadius.circular(999),
+                            borderSide: BorderSide(color: accentBlue),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
   }
 
   Card buildCommentContainer() {

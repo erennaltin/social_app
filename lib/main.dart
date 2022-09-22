@@ -30,19 +30,25 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => UserBloc()..add(InitializeUser()))
       ],
-      child: MaterialApp(
-          title: 'Flutter Demo',
-          debugShowCheckedModeBanner: false,
-          home: FirstScreen(),
-          theme: buildLightTheme(),
-          initialRoute: "/PostDetailScreen",
-          routes: {
-            '/FirstScreen': (context) => FirstScreen(),
-            '/SignInScreen': (context) => SignInScreen(),
-            '/SignUpScreen': (context) => SignUpScreen(),
-            '/AppScreen': (context) => AppScreen(),
-            '/PostDetailScreen': (context) => PostDetailScreen(),
-          }),
+      child: GestureDetector(
+        onTap: () {
+          // to dismiss keyboard easily
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: MaterialApp(
+            title: 'Flutter Demo',
+            debugShowCheckedModeBanner: false,
+            home: FirstScreen(),
+            theme: buildLightTheme(),
+            initialRoute: "/PostDetailScreen",
+            routes: {
+              '/FirstScreen': (context) => FirstScreen(),
+              '/SignInScreen': (context) => SignInScreen(),
+              '/SignUpScreen': (context) => SignUpScreen(),
+              '/AppScreen': (context) => AppScreen(),
+              '/PostDetailScreen': (context) => PostDetailScreen(),
+            }),
+      ),
     );
   }
 }
