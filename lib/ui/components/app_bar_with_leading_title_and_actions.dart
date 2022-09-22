@@ -12,7 +12,7 @@ class AppBarWithLeadingTitleAndActions extends StatelessWidget
   final actionButtons;
 
   @override
-  Size preferredSize = Size.fromHeight(77.0);
+  Size preferredSize = const Size.fromHeight(77.0);
 
   @override
   AppBar build(BuildContext context) {

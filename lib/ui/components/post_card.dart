@@ -18,18 +18,25 @@ class PostCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var SCREEN_WIDTH = MediaQuery.of(context).size.width;
 
-    return Card(
-        margin: EdgeInsets.only(
-            bottom: extended ? standartMargin / 2 : standartMargin),
-        elevation: 0.5,
-        child: Column(
-          children: <Widget>[
-            buildListTile(),
-            buildImage(SCREEN_WIDTH),
-            buildDescriptionContainer(),
-            buildActionButtonContainer()
-          ],
-        ));
+    return GestureDetector(
+      onTap: () {
+        if (ModalRoute.of(context)?.settings.name != "/PostDetailScreen") {
+          Navigator.pushNamed(context, '/PostDetailScreen');
+        }
+      },
+      child: Card(
+          margin: EdgeInsets.only(
+              bottom: extended ? standartMargin / 2 : standartMargin),
+          elevation: 0.5,
+          child: Column(
+            children: <Widget>[
+              buildListTile(),
+              buildImage(SCREEN_WIDTH),
+              buildDescriptionContainer(),
+              buildActionButtonContainer()
+            ],
+          )),
+    );
   }
 
   Padding buildActionButtonContainer() {
@@ -42,13 +49,13 @@ class PostCard extends StatelessWidget {
               children: <Widget>[
                 PostActionButton(iconName: "like", count: 0.toString()),
                 PostActionButton(iconName: "comment", count: 0.toString()),
-                PostActionButton(iconName: "publish", count: ""),
+                const PostActionButton(iconName: "publish", count: ""),
               ],
             ),
             IconButton(
               padding:
                   const EdgeInsets.symmetric(vertical: standartPadding / 2),
-              constraints: BoxConstraints(),
+              constraints: const BoxConstraints(),
               icon: SvgPicture.asset('assets/svgs/save.svg'),
               onPressed: () {},
             ),
@@ -58,7 +65,7 @@ class PostCard extends StatelessWidget {
 
   Container buildDescriptionContainer() {
     return Container(
-      padding: EdgeInsets.all(standartPadding),
+      padding: const EdgeInsets.all(standartPadding),
       child: Text(
         "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam...Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Exercitation veniam",
         style: bodySmaller.copyWith(color: dark80),
@@ -72,33 +79,36 @@ class PostCard extends StatelessWidget {
     return Container(
       height: SCREEN_WIDTH,
       width: SCREEN_WIDTH,
-      decoration: BoxDecoration(
-        image: DecorationImage(
+      decoration: const BoxDecoration(
+        image: const DecorationImage(
             image: NetworkImage("https://picsum.photos/2000/1000"),
             fit: BoxFit.fitHeight),
       ),
     );
   }
 
-  ListTile buildListTile() {
-    return ListTile(
-      horizontalTitleGap: standartMargin / 2,
-      contentPadding: EdgeInsets.symmetric(horizontal: standartPadding),
-      leading: ProfilePicture(),
-      title: Text(
-        "Country Henry",
-        style: bodySmallerSemiBold.copyWith(color: dark),
-      ),
-      subtitle: Text("iOS Developer"),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "24 March 2021",
-            style: helpText.copyWith(color: dark60),
-          ),
-          Text(" ")
-        ],
+  GestureDetector buildListTile() {
+    return GestureDetector(
+      onTap: () {},
+      child: ListTile(
+        horizontalTitleGap: standartMargin / 2,
+        contentPadding: const EdgeInsets.symmetric(horizontal: standartPadding),
+        leading: const ProfilePicture(),
+        title: Text(
+          "Country Henry",
+          style: bodySmallerSemiBold.copyWith(color: dark),
+        ),
+        subtitle: const Text("iOS Developer"),
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "24 March 2021",
+              style: helpText.copyWith(color: dark60),
+            ),
+            const Text(" ")
+          ],
+        ),
       ),
     );
   }

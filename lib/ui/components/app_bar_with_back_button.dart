@@ -12,7 +12,7 @@ class AppBarWithBackButton extends StatelessWidget with PreferredSizeWidget {
       this.actionButtons = const <Widget>[]});
 
   @override
-  Size preferredSize = Size.fromHeight(77.0);
+  Size preferredSize = const Size.fromHeight(77.0);
 
   final String? title;
   final double? page;

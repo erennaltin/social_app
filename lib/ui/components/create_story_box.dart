@@ -19,14 +19,14 @@ class CreateStoryBox extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: standartPadding / 2),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
             ),
             child: DottedBorder(
               strokeWidth: 1.5,
               color: accentBlue,
               borderType: BorderType.Circle,
-              dashPattern: [standartRadius / 2, standartRadius / 4],
+              dashPattern: const [standartRadius / 2, standartRadius / 4],
               child: Padding(
                 padding: const EdgeInsets.all(3.0),
                 child: Container(

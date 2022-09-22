@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             home: FirstScreen(),
             theme: buildLightTheme(),
-            initialRoute: "/PostDetailScreen",
+            initialRoute: "/AppScreen",
             routes: {
               '/FirstScreen': (context) => FirstScreen(),
               '/SignInScreen': (context) => SignInScreen(),

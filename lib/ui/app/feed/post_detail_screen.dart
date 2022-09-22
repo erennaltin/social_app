@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:social_app/core/constants/color_constants.dart';
 import 'package:social_app/core/constants/spacing_constants.dart';
 import 'package:social_app/core/constants/typo_constants.dart';
 import 'package:social_app/ui/components/app_bar_with_back_button.dart';
+import 'package:social_app/ui/components/comment.dart';
+import 'package:social_app/ui/components/modals/modal_fit.dart';
 import 'package:social_app/ui/components/post_action_button.dart';
 import 'package:social_app/ui/components/post_card.dart';
 import 'package:social_app/ui/components/profile_picture.dart';
@@ -56,7 +59,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          PostCard(extended: true),
+          const PostCard(extended: true),
           buildCommentContainer(),
         ],
       ),
@@ -65,7 +68,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
   KeyboardVisibilityBuilder buildCommentInput() {
     return KeyboardVisibilityBuilder(builder: (context, visible) {
-      return Container(
+      return SizedBox(
         height: visible ? 300 : 86,
         child: Form(
           key: _formKey,
@@ -78,7 +81,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
                   onPressed: () {},
                 ),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     height: visible ? 300 : 40,
                     child: Center(
                       child: TextFormField(
@@ -122,7 +125,7 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
 
   Column buildCommentListContainer() {
     return Column(
-      children: [
+      children: const [
         Comment(),
         Comment(),
         Comment(),
@@ -143,35 +146,39 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       ),
       trailing: Column(
         children: [
-          DropdownButton<String>(
-              value: _selectedCommentSortingMode,
-              elevation: 20,
-              underline: DropdownButtonHideUnderline(child: Container()),
-              onChanged: (value) {
-                setState(() {
-                  _selectedCommentSortingMode = value;
-                });
-              },
-              icon: SvgPicture.asset('assets/svgs/down.svg'),
-              items: [
-                DropdownMenuItem<String>(
-                  value: "MOST INTERESTING",
-                  child: Text(
-                    "MOST INTERESTING",
-                    style: uppercaseBig.copyWith(color: accentBlue),
-                  ),
-                ),
-                DropdownMenuItem<String>(
-                  value: "MOST RECENT",
-                  child: Text(
-                    "MOST RECENT",
-                    style: uppercaseBig.copyWith(color: accentBlue),
-                  ),
-                )
-              ]),
+          buildCommentSettingDropdown(),
         ],
       ),
     );
+  }
+
+  DropdownButton<String> buildCommentSettingDropdown() {
+    return DropdownButton<String>(
+        value: _selectedCommentSortingMode,
+        elevation: 20,
+        underline: DropdownButtonHideUnderline(child: Container()),
+        onChanged: (value) {
+          setState(() {
+            _selectedCommentSortingMode = value;
+          });
+        },
+        icon: SvgPicture.asset('assets/svgs/down.svg'),
+        items: [
+          DropdownMenuItem<String>(
+            value: "MOST INTERESTING",
+            child: Text(
+              "MOST INTERESTING",
+              style: uppercaseBig.copyWith(color: accentBlue),
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "MOST RECENT",
+            child: Text(
+              "MOST RECENT",
+              style: uppercaseBig.copyWith(color: accentBlue),
+            ),
+          )
+        ]);
   }
 
   AppBarWithBackButton buildAppBar() {
@@ -179,60 +186,16 @@ class _PostDetailScreenState extends State<PostDetailScreen> {
       title: "Post",
       actionButtons: <Widget>[
         IconButton(
-            onPressed: () {}, icon: SvgPicture.asset("assets/svgs/more.svg"))
+            onPressed: () {
+              showMaterialModalBottomSheet(
+                expand: false,
+                context: context,
+                backgroundColor: Colors.transparent,
+                builder: (context) => ModalFit(),
+              );
+            },
+            icon: SvgPicture.asset("assets/svgs/more.svg"))
       ],
-    );
-  }
-}
-
-class Comment extends StatelessWidget {
-  const Comment({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.only(bottom: standartMargin / 2),
-      elevation: 0,
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            contentPadding: EdgeInsets.only(left: standartPadding),
-            leading: ProfilePicture(),
-            title: Text(
-              "Jane Cooper",
-              style: bodySmallerSemiBold.copyWith(
-                color: dark,
-              ),
-            ),
-            subtitle: RichText(
-                text: TextSpan(
-              text:
-                  "Lorem ipsum dolor sit amet, donec fringilla quam eu faci lisis mollis. " +
-                      "\n",
-              style: bodySmaller.copyWith(color: dark),
-              children: [
-                TextSpan(
-                  text: "24 March 2021",
-                  style: helpText.copyWith(color: dark60),
-                ),
-              ],
-            )),
-            isThreeLine: true,
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 64,
-                  child:
-                      PostActionButton(iconName: "like", count: 0.toString()),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

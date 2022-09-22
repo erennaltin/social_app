@@ -38,12 +38,12 @@ class _InputState extends State<Input> {
   PhoneCode _country = PhoneCode.tr;
   @override
   Widget build(BuildContext context) {
-    var _emailDecoration = const InputDecoration(
+    var emailDecoration = const InputDecoration(
       labelText: 'Email',
       hintText: "Phone, email or username",
     );
 
-    var _passwordDecoration = InputDecoration(
+    var passwordDecoration = InputDecoration(
       labelText: 'Password',
       hintText: "Password",
       suffixIcon: IconButton(
@@ -57,18 +57,13 @@ class _InputState extends State<Input> {
       ),
     );
 
-    var _phoneDecoration = InputDecoration(
+    var phoneDecoration = InputDecoration(
         labelText: 'Mobile Phone',
         hintText: "Mobile Phone",
         prefixIcon: IconButton(
           onPressed: () {},
           icon: BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {
-              var phoneCodes = PhoneCode.values
-                  .toList()
-                  .map((e) => e.toString().split('.').elementAt(1))
-                  .toList();
-
               return DropdownButton<PhoneCode>(
                 value: _country,
                 elevation: 16,
@@ -98,13 +93,13 @@ class _InputState extends State<Input> {
           ),
         ));
 
-    var _usernameDecoration = InputDecoration(
+    var usernameDecoration = InputDecoration(
       labelText: 'Username',
       hintText: "username",
       suffixIcon: Padding(
-          padding: EdgeInsets.all(standartPadding),
+          padding: const EdgeInsets.all(standartPadding),
           child: widget.isValidating
-              ? SizedBox(
+              ? const SizedBox(
                   width: standartPadding,
                   height: standartPadding,
                   child: CircularProgressIndicator(strokeWidth: 4))
@@ -118,7 +113,7 @@ class _InputState extends State<Input> {
     switch (widget.inputType) {
       case "Email":
         {
-          widget._decoration = _emailDecoration;
+          widget._decoration = emailDecoration;
           widget._keyboardType = TextInputType.emailAddress;
           widget._validator = (value) {
             if (value != null) {
@@ -132,7 +127,7 @@ class _InputState extends State<Input> {
         }
       case "Password":
         {
-          widget._decoration = _passwordDecoration;
+          widget._decoration = passwordDecoration;
           widget._keyboardType = TextInputType.visiblePassword;
           widget.isPassword = true;
           widget._validator = (value) {
@@ -147,7 +142,7 @@ class _InputState extends State<Input> {
         }
       case "Phone":
         {
-          widget._decoration = _phoneDecoration;
+          widget._decoration = phoneDecoration;
           widget._keyboardType = TextInputType.phone;
           widget._inputFormatters = [
             LengthLimitingTextInputFormatter(10),
@@ -166,7 +161,7 @@ class _InputState extends State<Input> {
         }
       case "Username":
         {
-          widget._decoration = _usernameDecoration;
+          widget._decoration = usernameDecoration;
           widget._keyboardType = TextInputType.text;
           widget._validator = (value) {
             if (value != null) {
@@ -180,7 +175,7 @@ class _InputState extends State<Input> {
         }
       default:
         {
-          widget._decoration = _emailDecoration;
+          widget._decoration = emailDecoration;
           widget._keyboardType = TextInputType.emailAddress;
           widget._validator = (value) {};
           break;
